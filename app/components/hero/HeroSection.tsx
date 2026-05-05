@@ -157,7 +157,7 @@ const HeroSection = ({
       {/* Top Badge Area with Awards Image */}
       <div className="absolute top-8 md:top-12 z-20 text-center">
         <p className="text-xs md:text-sm font-semibold tracking-widest uppercase opacity-90 mb-3">
-          #1 MOST RECOMMENDED CONTENT MARKETING AGENCY
+          #1 MOST RECOMMENDED <br /> CONTENT MARKETING AGENCY
         </p>
         <div className="flex justify-center">
           <Image 
@@ -181,14 +181,31 @@ const HeroSection = ({
       )}
 
       {/* Right Side Text */}
-      {rightText && (
-        <div
-          ref={rightTextRef}
-          className="absolute right-6 bottom-12 md:right-16 md:bottom-20 w-full md:w-[30%] text-xs md:text-sm lg:text-base font-light leading-relaxed text-right opacity-90"
-        >
-          {rightText}
-        </div>
-      )}
+   {rightText && (
+  <div
+    ref={rightTextRef}
+    className="absolute right-6 bottom-12 md:right-16 md:bottom-20 w-full md:w-[30%] text-xs md:text-sm lg:text-base font-light leading-relaxed text-center md:text-center opacity-90"
+  >
+    {/* Mobile → normal text */}
+    <div className="block md:hidden">{rightText}</div>
+
+    {/* md+ → break after 4 words */}
+    <div className="hidden md:block">
+      {(() => {
+        const words = rightText.split(" ");
+        const firstLine = words.slice(0, 4).join(" ");
+        const secondLine = words.slice(4).join(" ");
+
+        return (
+          <>
+            <div>{firstLine}</div>
+            <div>{secondLine}</div>
+          </>
+        );
+      })()}
+    </div>
+  </div>
+)}
 
       {/* Main Content */}
       <div className="relative z-10 text-center px-4 md:px-8">

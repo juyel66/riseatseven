@@ -106,12 +106,12 @@ const Agency = ({ items }: AgencyProps) => {
         ref={containerRef}
         className="flex w-max items-center gap-24 px-6 md:px-20 select-none"
       >
-        {/* Left Text */}
+      
         <div className="min-w-75 shrink-0 text-black text-lg font-medium">
           The agency behind
         </div>
 
-        {/* Logos */}
+   
         {sliderItems.map((item: AgencyItem, index: number) => (
           <div
             key={`${item.id}-${index}`}

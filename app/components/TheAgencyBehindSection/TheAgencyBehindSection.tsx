@@ -70,7 +70,7 @@ const Agency = ({ items }: AgencyProps) => {
 
     if (deltaX === 0) return;
 
-    // Mark as dragging once there's actual movement
+
     isDraggingRef.current = true;
 
     // Reverse direction: moving right means deltaX is positive, slider should move right (+1)

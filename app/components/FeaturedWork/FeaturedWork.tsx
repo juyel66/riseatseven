@@ -31,22 +31,21 @@ const FeaturedWork = ({ items }: FeaturedWorkProps) => {
   return (
     <section ref={sectionRef} className="w-full bg-[#0b0b0b] px-4 py-4 md:px-6 md:py-6 lg:px-4 lg:py-4">
       <div className="grid gap-4 lg:grid-cols-[0.92fr_1fr] lg:items-start">
-        <div className="sticky top-4 rounded-[28px] bg-[#0b0b0b] p-5 text-white md:p-8 lg:h-[calc(82vh-1rem)] lg:p-10">
-          <div className="flex h-full flex-col justify-center gap-4 md:gap-5 lg:gap-6">
-            {items.map((item, index) => {
-              const itemOffset = scrollProgress - index * 220;
-              const reveal = Math.min(1, Math.max(0, itemOffset / 180));
-
+        <div className="sticky rounded-[28px] bg-[#0b0b0b] p-5 text-white md:p-8 lg:top-1/2 lg:h-[58vh] lg:-translate-y-1/2 lg:p-10 lg:overflow-hidden">
+          <div
+            className="flex h-full flex-col items-center justify-center gap-1 text-center md:gap-2 lg:gap-3"
+            style={{ transform: `translateY(${scrollProgress * -0.02}px)` }}
+          >
+            {items.slice(0, 4).map((item, index) => {
               return (
                 <div
                   key={item.id}
-                  className="max-w-4xl transition-all duration-700 ease-out"
+                  className="max-w-4xl transition-transform duration-700 ease-out"
                   style={{
-                    opacity: reveal,
-                    transform: `translateY(${(1 - reveal) * 56}px)`,
+                    transform: `translateY(${index * 2}px)`,
                   }}
                 >
-                  <h2 className="text-[clamp(3.3rem,7vw,7.8rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-white/96">
+                  <h2 className="text-[clamp(3rem,6.6vw,7rem)] font-semibold leading-[0.8] tracking-[-0.08em] text-white/96">
                     {item.title}
                   </h2>
                 </div>

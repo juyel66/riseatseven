@@ -81,7 +81,7 @@ const Agency = ({ items }: AgencyProps) => {
   const handlePointerUp = () => {
     isPointerDownRef.current = false;
     isDraggingRef.current = false;
-    lastPointerXRef.current = null;
+    lastPointerXRef.current = null; 
     // Return to auto-scroll
     directionRef.current = -1;
     targetVelocityRef.current = 0.8;

@@ -52,38 +52,7 @@ const Home = () => {
       </div>
 
        <main>
-      <FeaturedWork
-        items={[
-          {
-            id: 1,
-            title: "RedBull Campaign",
-            category: "Brand Strategy",
-            background:
-              "linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%)",
-          },
-          {
-            id: 2,
-            title: "Luxury Fashion",
-            category: "Creative Direction",
-            background:
-              "linear-gradient(135deg, #111827 0%, #374151 100%)",
-          },
-          {
-            id: 3,
-            title: "NextGen Startup",
-            category: "UI/UX Design",
-            background:
-              "linear-gradient(135deg, #9333ea 0%, #4c1d95 100%)",
-          },
-          {
-            id: 4,
-            title: "Global Media",
-            category: "Digital Marketing",
-            background:
-              "linear-gradient(135deg, #f97316 0%, #7c2d12 100%)",
-          },
-        ]}
-      />
+      <FeaturedWork />
     </main>
 
     </div>

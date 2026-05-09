@@ -4,7 +4,6 @@ export interface FeaturedWorkItem {
   category: string;
   background: string;
 }
-
 export interface FeaturedWorkProps {
   items: FeaturedWorkItem[];
 }

@@ -1,5 +1,6 @@
 import DrivingDemand from "../components/DrivingDemand/DrivingDemand";
-import FeaturedWork from "../components/FeaturedWork/FeaturedWork";
+import OurService from "../components/OurService/OurService";
+import SendYourBrief from "../components/SendYourBreif/SendYourBrief";
 import Agency from "../components/TheAgencyBehindSection/TheAgencyBehindSection";
 import HeroSection from "../components/hero/HeroSection";
 
@@ -50,11 +51,8 @@ const Home = () => {
       <div>
         <DrivingDemand />
       </div>
-
-       <main>
-      <FeaturedWork />
-    </main>
-
+      <OurService />
+      <SendYourBrief />
     </div>
   );
 };

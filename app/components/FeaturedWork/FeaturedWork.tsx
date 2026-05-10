@@ -1,156 +1,260 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type MouseEvent } from "react";
-
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import featuredWorkItems from "./data";
-import { FeaturedWorkProps } from "../types/featured-work.types";
 
-gsap.registerPlugin(ScrollTrigger);
+const featuredItems = [
+  {
+    id: 1,
+    title: "Scaling Modern E-Commerce Brands Globally",
+    year: "[2023-2024]",
+    image: "/images/1.webp",
+    tag: "E-Commerce",
+  },
+  {
+    id: 2,
+    title: "Building AI-Driven Digital Experiences",
+    year: "[2024]",
+    image: "/images/2.jpg",
+    tag: "Artificial Intelligence",
+  },
+  {
+    id: 3,
+    title: "Creative Strategy For Luxury Fashion",
+    year: "[2022-2025]",
+    image: "/images/3.jpg",
+    tag: "Luxury Fashion",
+  },
+  {
+    id: 4,
+    title: "High-Converting Social Media Campaigns",
+    year: "[2023]",
+    image: "/images/4.webp",
+    tag: "Marketing",
+  },
+  {
+    id: 5,
+    title: "Reimagining Search Visibility Worldwide",
+    year: "[2021-2024]",
+    image: "/images/5.jpg",
+    tag: "SEO",
+  },
+  {
+    id: 6,
+    title: "Premium Branding For Global Startups",
+    year: "[2024]",
+    image: "/images/6.jpg",
+    tag: "Branding",
+  },
+  {
+    id: 7,
+    title: "Transforming User Experience Through Design",
+    year: "[2022-2025]",
+    image: "/images/7.webp",
+    tag: "UI/UX",
+  },
+];
 
-const VISIBLE_TEXT_ROWS = 4;
-const TEXT_ROW_HEIGHT_REM = 4.25;
+const FeaturedWork = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-const FeaturedWork = ({ items }: FeaturedWorkProps) => {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const leftListRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const textWrapperRef = useRef<HTMLDivElement | null>(null);
+  const imageRef = useRef<HTMLDivElement | null>(null);
 
-  const allItems = items ?? featuredWorkItems;
+  const cursorRef = useRef<HTMLDivElement | null>(null);
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    setCursorPos({ x: e.clientX, y: e.clientY });
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+
+      const progress = Math.min(
+        Math.max(-rect.top / rect.height, 0),
+        0.999
+      );
+
+      const index = Math.floor(progress * featuredItems.length);
+
+      setActiveIndex(index);
+    };
+    
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    gsap.to(textWrapperRef.current, {
+      y: -(activeIndex * 120),
+      duration: 0.8,
+      ease: "power3.out",
+    });
+
+    gsap.fromTo(
+      imageRef.current,
+      {
+        scale: 1.05,
+        opacity: 0,
+      },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+      }
+    );
+  }, [activeIndex]);
+
+  const handleMouseMove = (
+    e: React.MouseEvent<HTMLDivElement>
+  ) => {
+    if (!cursorRef.current) return;
+
+    const bounds = e.currentTarget.getBoundingClientRect();
+
+    const x = e.clientX - bounds.left;
+    const y = e.clientY - bounds.top;
+
+    gsap.to(cursorRef.current, {
+      x,
+      y,
+      duration: 0.2,
+      ease: "power3.out",
+    });
   };
 
-  useLayoutEffect(() => {
-    if (!sectionRef.current || !leftListRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const travelRem = Math.max(0, allItems.length - VISIBLE_TEXT_ROWS) * TEXT_ROW_HEIGHT_REM;
-
-      gsap.to(
-        leftListRef.current,
-        {
-          y: `-${travelRem}rem`,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: `${(allItems.length - VISIBLE_TEXT_ROWS) * 120}px`,
-            scrub: 1.1,
-            invalidateOnRefresh: true,
-          },
-        },
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [allItems.length]);
-
   return (
-    <section ref={sectionRef} className="w-full bg-[#0b0b0b] px-4 py-8 md:px-6 md:py-8 lg:px-4">
-      <div className="grid gap-4 lg:grid-cols-[0.92fr_1fr] h-150 lg:h-175">
-        <div className="rounded-[28px] bg-[#0b0b0b] p-5 text-white md:p-8 lg:p-10 flex items-center justify-center overflow-hidden">
-          <div className="flex h-full w-full items-center justify-center">
+    <section
+      ref={sectionRef}
+      className="relative h-[180vh] bg-[#050505] rounded-[36px] overflow-hidden"
+    >
+      <div className="sticky top-0 h-screen flex">
+
+        {/* LEFT */}
+        <div className="w-1/2 h-screen px-14 py-14 flex flex-col border-r border-white/5 overflow-hidden">
+
+          {/* Heading */}
+          <div className="mb-16">
+            <p className="text-white text-[42px] font-medium tracking-tight">
+              Featured Work
+            </p>
+          </div>
+
+          {/* TEXT SCROLLER */}
+          <div className="relative h-[480px] overflow-hidden">
+
             <div
-              className="relative mx-auto w-full max-w-4xl overflow-hidden"
-              style={{ height: `calc(${VISIBLE_TEXT_ROWS} * ${TEXT_ROW_HEIGHT_REM}rem)` }}
+              ref={textWrapperRef}
+              className="flex flex-col gap-8"
             >
-              <div ref={leftListRef} className="flex flex-col will-change-transform">
-                {allItems.map((item, index) => (
-                  <div key={item.id} className="flex h-17 items-center">
-                    <h2 className="text-[clamp(2.2rem,4vw,4.4rem)] font-semibold leading-none tracking-[-0.06em] text-white/96">
-                      <span className="mr-4 inline-block w-12 text-white/45">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      {item.title}
-                    </h2>
-                  </div>
-                ))}
+              {featuredItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="min-h-[110px] flex items-start justify-between gap-8"
+                >
+                  <h2 className="text-white text-[72px] leading-[0.9] font-semibold tracking-[-4px] max-w-[700px]">
+                    {item.title}
+                  </h2>
+
+                  <span className="text-white/60 text-xl mt-4 whitespace-nowrap">
+                    {item.year}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* TOP FADE */}
+            <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-[#050505] to-transparent z-10" />
+
+            {/* BOTTOM FADE */}
+            <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-[#050505] to-transparent z-10" />
+          </div>
+        </div>
+
+        {/* RIGHT */}
+        <div className="w-1/2 h-screen p-5">
+
+          <div
+            ref={imageRef}
+            onMouseMove={handleMouseMove}
+            className="relative w-full h-full rounded-[32px] overflow-hidden cursor-none"
+          >
+
+            {/* IMAGE */}
+            <Image
+              src={featuredItems[activeIndex].image}
+              alt="featured"
+              fill
+              priority
+              className="object-cover"
+            />
+
+            {/* DARK OVERLAY */}
+            <div className="absolute inset-0 bg-black/10" />
+
+            {/* TITLE */}
+            <div className="absolute top-10 left-10 z-20 max-w-[650px]">
+              <h3 className="text-white text-[68px] leading-[0.92] font-semibold tracking-[-4px]">
+                {featuredItems[activeIndex].title}
+              </h3>
+            </div>
+
+            {/* CUSTOM CURSOR */}
+            <div
+              ref={cursorRef}
+              className="absolute top-0 left-0 z-50 pointer-events-none -translate-x-1/2 -translate-y-1/2"
+            >
+              <div className="w-36 h-36 rounded-full bg-[#B7F5E5] flex items-center justify-center">
+
+                <svg
+                  className="w-14 h-14 text-black"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M7 17L17 7M17 7H8M17 7V16"
+                  />
+                </svg>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="rounded-[28px] bg-[#0b0b0b] p-4 md:p-6 lg:p-6 overflow-y-auto overflow-x-hidden">
-          <div className="space-y-4 md:space-y-6">
-            {allItems.map((item, index) => (
-              <div
-                key={item.id}
-                className="group"
-                onMouseMove={handleMouseMove}
-                onMouseEnter={() => setHoveredId(item.id)}
-                onMouseLeave={() => setHoveredId(null)}
-              >
-                <div
-                  className={`relative h-90 overflow-hidden rounded-4xl md:h-105 lg:h-115 ${
-                    hoveredId === item.id ? "cursor-none" : "cursor-pointer"
-                  }`}
-                  style={{
-                    backgroundImage: `url(${item.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
+            {/* TAG */}
+            <div className="absolute right-8 bottom-8 z-20">
+              <div className="px-5 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/10 flex items-center gap-3 text-white">
+
+                <span className="font-medium text-[15px]">
+                  {featuredItems[activeIndex].tag}
+                </span>
+
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <div className="absolute inset-0 bg-black/0 transition duration-500 group-hover:bg-black/10" />
-
-                  {hoveredId === item.id && (
-                    <div
-                      className="fixed pointer-events-none z-50"
-                      style={{
-                        left: `${cursorPos.x}px`,
-                        top: `${cursorPos.y}px`,
-                        transform: "translate(-50%, -50%)",
-                      }}
-                    >
-                      <svg
-                        className="h-10 w-10 text-white drop-shadow-lg"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 7l5 5m0 0l-5 5m5-5H6"
-                        />
-                      </svg>
-                    </div>
-                  )}
-
-                  <div className="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-black backdrop-blur-md">
-                    {item.category}
-                  </div>
-
-                  <div className="absolute bottom-5 right-5 rounded-full bg-black/30 px-4 py-2 text-sm font-medium text-white backdrop-blur-md">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between px-1 pb-2">
-                  <div>
-                    <h3 className="text-2xl font-semibold text-white md:text-3xl">{item.title}</h3>
-                    <p className="mt-1 text-sm text-white/55">{item.category} feature case study.</p>
-                  </div>
-
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition duration-300 group-hover:bg-white group-hover:text-black">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
-                  </div>
-                </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 17L17 7M17 7H8M17 7V16"
+                  />
+                </svg>
               </div>
-            ))}
+            </div>
+
           </div>
         </div>
+
       </div>
     </section>
   );

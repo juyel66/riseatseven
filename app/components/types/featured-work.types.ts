@@ -3,7 +3,8 @@ export interface FeaturedWorkItem {
   title: string;
   category: string;
   background: string;
+  image: string;
 }
 export interface FeaturedWorkProps {
-  items: FeaturedWorkItem[];
+  items?: FeaturedWorkItem[];
 }

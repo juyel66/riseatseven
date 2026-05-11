@@ -1,7 +1,10 @@
 import DrivingDemand from "../components/DrivingDemand/DrivingDemand";
+import LegacyInMarketing from "../components/LegacyInMarketing/LegacyInMarketing";
 import OurService from "../components/OurService/OurService";
+import ReadyToRise from "../components/ReadyToRise/ReadyToRise";
 import SendYourBrief from "../components/SendYourBreif/SendYourBrief";
 import Agency from "../components/TheAgencyBehindSection/TheAgencyBehindSection";
+import WhatsNew from "../components/WhatsNew/WhatsNew";
 import HeroSection from "../components/hero/HeroSection";
 
 const agencyItems = [
@@ -34,7 +37,7 @@ const agencyItems = [
 
 const Home = () => {
   return (
-    <div className="bg-white">
+    <div className="bg-[#efefec]">
       <HeroSection
         titleLine1="We Create"
         titleLine2Left="Category"
@@ -53,6 +56,10 @@ const Home = () => {
       </div>
       <OurService />
       <SendYourBrief />
+      <LegacyInMarketing />
+      <WhatsNew />
+      <ReadyToRise />
+      <LegacyInMarketing />
     </div>
   );
 };

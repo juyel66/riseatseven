@@ -1,14 +1,16 @@
 // import Navbar from "../Pages/Navbar/Navbar";
 // import Footer from "../Pages/WebsitesPages/Footer/Footer";
 
+import Footer from "../components/Footer/Footer";
+
 
 const DashboardLayout = ({children}: {children: React.ReactNode}) => {
     return (
-        <div>
+        <div className="bg-[#efefec]">
         
             {/* <Navbar /> */}
             {children}
-            {/* <Footer /> */}
+            <Footer />
             
             
         </div>

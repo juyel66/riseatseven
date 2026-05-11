@@ -33,17 +33,23 @@ const SendYourBrief = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const marqueeRef = useRef<HTMLDivElement | null>(null);
 
-  const directionRef = useRef(-1);
   const xPercentRef = useRef(0);
+
+  // DEFAULT = LEFT
+  const directionRef = useRef(-1);
 
   useEffect(() => {
     let animationFrame: number;
 
+    const speed = 0.03;
+
     const animate = () => {
       if (!marqueeRef.current) return;
 
-      xPercentRef.current += 0.03 * directionRef.current;
+      // SAME SPEED BOTH DIRECTIONS
+      xPercentRef.current += speed * directionRef.current;
 
+      // LOOP
       if (xPercentRef.current <= -50) {
         xPercentRef.current = 0;
       }
@@ -65,18 +71,30 @@ const SendYourBrief = () => {
   }, []);
 
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
+      // SCROLL UP → RIGHT
       if (currentScrollY < lastScrollY) {
         directionRef.current = 1;
-      } else {
+      }
+
+      // SCROLL DOWN → LEFT
+      else {
         directionRef.current = -1;
       }
 
       lastScrollY = currentScrollY;
+
+      // AFTER SCROLL STOP → BACK TO LEFT
+      clearTimeout(scrollTimeout);
+
+      scrollTimeout = setTimeout(() => {
+        directionRef.current = -1;
+      }, 120);
     };
 
     window.addEventListener("scroll", handleScroll);

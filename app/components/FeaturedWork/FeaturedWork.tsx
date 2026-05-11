@@ -132,7 +132,7 @@ const FeaturedWork = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[180vh] bg-[#050505] rounded-[36px] overflow-hidden"
+      className="relative h-[180vh] bg-[#efefec] rounded-[36px] overflow-hidden"
     >
       <div className="sticky top-0 h-screen flex">
 

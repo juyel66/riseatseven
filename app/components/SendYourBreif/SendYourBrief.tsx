@@ -176,7 +176,6 @@ const SendYourBrief = () => {
               {item.text}
             </h2>
 
-            {/* IMAGE */}
             <div className="relative w-[200px] h-[200px] rounded-[40px] overflow-hidden flex-shrink-0">
 
               <Image

@@ -100,7 +100,7 @@ const Agency = ({ items }: AgencyProps) => {
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerLeave}
-      className="w-full bg-[#F3F3F1] py-12 md:py-16 overflow-hidden cursor-grab active:cursor-grabbing"
+      className="w-full bg-[#efefec] py-12 md:py-16 overflow-hidden cursor-grab active:cursor-grabbing"
     >
       <div
         ref={containerRef}

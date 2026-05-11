@@ -6,11 +6,11 @@ import gsap from "gsap";
 import drivingDemand from "../../../public/images/drivingDemand.webp";
 
 const DrivingDemand = () => {
-  const storyButtonRef = useRef<HTMLDivElement | null>(null);
-  const servicesButtonRef = useRef<HTMLDivElement | null>(null);
+  const storyButtonRef = useRef<HTMLButtonElement | null>(null);
+  const servicesButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const handleButtonHover = (
-    buttonRef: React.RefObject<HTMLDivElement>,
+    buttonRef: React.RefObject<HTMLButtonElement | null>,
     isEnter: boolean,
   ) => {
     if (!buttonRef.current) return;
@@ -49,7 +49,7 @@ const DrivingDemand = () => {
     }
   };
   return (
-    <section className="w-full  bg-[#f3f3f1] py-20 flex items-center">
+    <section className="w-full  bg-[#efefec] py-20 flex items-center">
       <div className="w-full container mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="pt-6 md:pt-10 max-w-[520px]">

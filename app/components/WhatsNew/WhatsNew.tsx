@@ -44,7 +44,7 @@ const WhatsNew = () => {
   const explorMoreButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const handleButtonHover = (
-    buttonRef: React.RefObject<HTMLButtonElement> | HTMLDivElement,
+    buttonRef: React.RefObject<HTMLButtonElement | null> | HTMLDivElement,
     isEnter: boolean,
   ) => {
     let element: HTMLElement | null = null;
@@ -142,7 +142,7 @@ const WhatsNew = () => {
         <div className="flex flex-wrap items-center gap-3 md:gap-5">
 
           <h2 className="text-[52px] font-semibold leading-none tracking-[-4px] text-black md:text-[92px] md:tracking-[-6px]">
-            What's
+            What&apos;s
           </h2>
 
           <div className="relative h-16 w-16 overflow-hidden rounded-[18px] md:h-20 md:w-20">

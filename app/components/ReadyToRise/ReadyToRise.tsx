@@ -7,116 +7,109 @@ import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+const text = "Ready to Rise at Seven?";
+
 const ReadyToRise = () => {
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const textRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
-    if (!wrapperRef.current || !textRef.current) return;
+    if (!sectionRef.current || !textRef.current) return;
 
     const ctx = gsap.context(() => {
 
-      // SPLIT TEXT
+      // SPLIT CHARACTERS
       const split = SplitText.create(textRef.current, {
         type: "chars",
       });
 
-      // INITIAL CHARACTER POSITION
+      // INITIAL STATE
       gsap.set(split.chars, {
         y: -700,
-        opacity: 1,
       });
 
-      // HORIZONTAL SCROLL
-      const scrollTween = gsap.to(textRef.current, {
-        xPercent: -120,
+      // MAIN HORIZONTAL SCROLL
+      const horizontalTween = gsap.to(textRef.current, {
+        x: () => -(textRef.current!.scrollWidth - window.innerWidth + 200),
         ease: "none",
-
         scrollTrigger: {
-          trigger: wrapperRef.current,
+          trigger: sectionRef.current,
           pin: true,
-          pinSpacing: false, // REMOVE EXTRA HEIGHT
           start: "top top",
-          end: "+=5000",
+          end: "+=4200",
           scrub: 1,
           anticipatePin: 1,
         },
       });
 
       // CHARACTER DROP ANIMATION
-      split.chars.forEach((char) => {
+      split.chars.forEach((char, index) => {
         gsap.to(char, {
           y: 0,
           ease: "power3.out",
 
           scrollTrigger: {
             trigger: char,
-            containerAnimation: scrollTween,
-            start: "left 95%",
-            end: "left 65%",
+            containerAnimation: horizontalTween,
+            start: "left 92%",
+            end: "left 72%",
             scrub: 1,
           },
         });
       });
 
-      // SECTION MOVE UP END
-      gsap.to(wrapperRef.current, {
+      // WHOLE SECTION MOVE UP END
+      gsap.to(sectionRef.current, {
         y: -180,
         ease: "none",
-
         scrollTrigger: {
-          trigger: wrapperRef.current,
+          trigger: sectionRef.current,
           start: "bottom bottom",
           end: "bottom top",
           scrub: 1,
         },
       });
 
-    }, wrapperRef);
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
     <section
-      ref={wrapperRef}
+      ref={sectionRef}
       className="
         relative
-        flex
-        h-[220px]
+        h-screen
         w-full
-        items-center
         overflow-hidden
         bg-[#efefec]
-        p-0
-        m-0
       "
     >
-      <div className="w-full overflow-hidden p-0 m-0">
-
+      <div
+        className="
+          flex
+          h-full
+          items-center
+        "
+      >
         <h2
           ref={textRef}
           className="
-            Horizontal__text
-            flex
-            w-max
             whitespace-nowrap
             pl-[100vw]
 
             text-black
             font-semibold
-            leading-[0.8]
+            leading-none
             tracking-[-0.08em]
 
-            p-0
-            m-0
-
             text-[90px]
-            md:text-[170px]
-            lg:text-[240px]
+            md:text-[150px]
+            lg:text-[200px]
           "
         >
-          Ready&nbsp;to&nbsp;Rise&nbsp;at&nbsp;Seven?
+          {text}
         </h2>
       </div>
     </section>

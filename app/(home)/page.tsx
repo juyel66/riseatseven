@@ -59,7 +59,7 @@ const Home = () => {
       <LegacyInMarketing />
       <WhatsNew />
       <ReadyToRise />
-      <LegacyInMarketing />
+      
     </div>
   );
 };

@@ -42,7 +42,7 @@ const OurService = () => {
   const viewAllButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const handleButtonHover = (
-    buttonRef: React.RefObject<HTMLButtonElement>,
+    buttonRef: React.RefObject<HTMLButtonElement | null>,
     isEnter: boolean,
   ) => {
     if (!buttonRef.current) return;

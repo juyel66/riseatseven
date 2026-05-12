@@ -5,7 +5,6 @@ import gsap from "gsap";
 import Image from "next/image";
 import { HeroProps } from "../types/hero";
 import heroSectionsImg from "../../../public/images/heroSectionsImg.png";
-import centerImage from "../../../public/images/hero.png";
 
 
 

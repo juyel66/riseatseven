@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import gsap from "gsap";
 
 const services = [
   {
@@ -38,6 +39,47 @@ const services = [
 
 const OurService = () => {
   const [hoveredService, setHoveredService] = useState<number | null>(null);
+  const viewAllButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleButtonHover = (
+    buttonRef: React.RefObject<HTMLButtonElement>,
+    isEnter: boolean,
+  ) => {
+    if (!buttonRef.current) return;
+
+    const initialText = buttonRef.current.querySelector(".initial-text");
+    const hoverText = buttonRef.current.querySelector(".hover-text");
+
+    if (isEnter) {
+      gsap.to(initialText, {
+        y: -40,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+
+      gsap.to(hoverText, {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    } else {
+      gsap.to(initialText, {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+
+      gsap.to(hoverText, {
+        y: 40,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    }
+  };
 
   return (
     <section className="w-full bg-[#efefec] px-7 py-10 md:px-10 lg:px-8">
@@ -73,23 +115,44 @@ const OurService = () => {
         </div>
 
         {/* BUTTON */}
-        <button className="mt-10 px-8 h-14 rounded-full bg-white flex items-center gap-3 text-[18px] font-medium text-black hover:bg-black hover:text-white transition-all duration-300">
-
-          <span>View All Services</span>
-
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M7 17L17 7M17 7H8M17 7V16"
-            />
-          </svg>
+        <button
+          ref={viewAllButtonRef}
+          onMouseEnter={() => handleButtonHover(viewAllButtonRef, true)}
+          onMouseLeave={() => handleButtonHover(viewAllButtonRef, false)}
+          className="px-6 h-12 bg-white border border-gray-300 rounded-full inline-flex items-center justify-center gap-2 text-black font-medium text-[14px]  transition relative overflow-hidden"
+        >
+          <div className="initial-text flex items-center gap-2">
+            View All Services
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+          </div>
+          <div className="hover-text absolute flex items-center gap-2 translate-y-12 opacity-0">
+            View All Services
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+          </div>
         </button>
       </div>
 

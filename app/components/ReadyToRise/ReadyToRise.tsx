@@ -43,7 +43,7 @@ const ReadyToRise = () => {
       });
 
       // CHARACTER DROP ANIMATION
-      split.chars.forEach((char, index) => {
+      split.chars.forEach((char) => {
         gsap.to(char, {
           y: 0,
           ease: "power3.out",
@@ -105,8 +105,8 @@ const ReadyToRise = () => {
             tracking-[-0.08em]
 
             text-[90px]
-            md:text-[150px]
-            lg:text-[200px]
+            md:text-[170px]
+            lg:text-[240px]
           "
         >
           {text}

@@ -41,6 +41,55 @@ const WhatsNew = () => {
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const cursorRef = useRef<HTMLDivElement | null>(null);
+  const explorMoreButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleButtonHover = (
+    buttonRef: React.RefObject<HTMLButtonElement> | HTMLDivElement,
+    isEnter: boolean,
+  ) => {
+    let element: HTMLElement | null = null;
+    
+    if (buttonRef instanceof HTMLElement) {
+      element = buttonRef;
+    } else if ("current" in buttonRef) {
+      element = buttonRef.current;
+    }
+
+    if (!element) return;
+
+    const initialText = element.querySelector(".initial-text");
+    const hoverText = element.querySelector(".hover-text");
+
+    if (isEnter) {
+      gsap.to(initialText, {
+        y: -40,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+
+      gsap.to(hoverText, {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    } else {
+      gsap.to(initialText, {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+
+      gsap.to(hoverText, {
+        y: 40,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    }
+  };
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement>
@@ -112,23 +161,48 @@ const WhatsNew = () => {
         </div>
 
         {/* BUTTON */}
-        <button className="hidden h-12 shrink-0 items-center gap-2 rounded-full bg-white px-6 text-sm font-medium text-black md:flex">
+        <button
+          ref={explorMoreButtonRef}
+          onMouseEnter={() => handleButtonHover(explorMoreButtonRef, true)}
+          onMouseLeave={() => handleButtonHover(explorMoreButtonRef, false)}
+          className="hidden h-12 shrink-0 items-center gap-2 rounded-full bg-white px-6 text-sm font-medium text-black   transition md:flex relative overflow-hidden"
+        >
 
-          <span>Explore More Thoughts</span>
+          <div className="initial-text flex items-center gap-2">
+            <span>Explore More Thoughts</span>
 
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M7 17L17 7M17 7H8M17 7V16"
-            />
-          </svg>
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M7 17L17 7M17 7H8M17 7V16"
+              />
+            </svg>
+          </div>
+
+          <div className="hover-text absolute flex items-center gap-2 translate-y-12 opacity-0">
+            <span>Explore More Thoughts</span>
+
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M7 17L17 7M17 7H8M17 7V16"
+              />
+            </svg>
+          </div>
         </button>
       </div>
 
@@ -163,28 +237,6 @@ const WhatsNew = () => {
               {/* CATEGORY */}
               <div className="absolute left-3 top-3 z-20 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-black backdrop-blur-md">
                 {item.category}
-              </div>
-
-              {/* EXPLORE */}
-              <div className="absolute bottom-4 left-4 z-20 flex h-12 items-center gap-2 rounded-full bg-white px-5">
-
-                <svg
-                  className="h-4 w-4 text-black"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H5v5m0 0l7-7 7 7m-7-7v18"
-                  />
-                </svg>
-
-                <span className="text-sm font-medium text-black">
-                  Explore
-                </span>
               </div>
             </div>
 

@@ -6,11 +6,11 @@ import gsap from "gsap";
 import drivingDemand from "../../../public/images/drivingDemand.webp";
 
 const DrivingDemand = () => {
-  const storyButtonRef = useRef<HTMLDivElement | null>(null);
-  const servicesButtonRef = useRef<HTMLDivElement | null>(null);
+  const storyButtonRef = useRef<HTMLButtonElement | null>(null);
+  const servicesButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const handleButtonHover = (
-    buttonRef: React.RefObject<HTMLDivElement>,
+    buttonRef: React.RefObject<HTMLButtonElement | null>,
     isEnter: boolean,
   ) => {
     if (!buttonRef.current) return;

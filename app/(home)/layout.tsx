@@ -1,5 +1,5 @@
 // import Navbar from "../Pages/Navbar/Navbar";
-// import Footer from "../Pages/WebsitesPages/Footer/Footer";
+
 
 import Footer from "../components/Footer/Footer";
 

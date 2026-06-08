@@ -97,7 +97,7 @@ const LegacyInMarketing = () => {
         </h2>
       </div>
 
-      {/* CARDS */}
+      
       <div className="relative flex h-155 w-155 items-center justify-center">
 
         {cards.map((card, index) => (

@@ -1,4 +1,5 @@
 // import Navbar from "../Pages/Navbar/Navbar";
+// import Navbar from
 
 
 import Footer from "../components/Footer/Footer";

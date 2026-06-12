@@ -28,7 +28,7 @@ const ReadyToRise = () => {
         y: -700,
       });
 
-      // MAIN HORIZONTAL SCROLL
+      
       const horizontalTween = gsap.to(textRef.current, {
         x: () => -(textRef.current!.scrollWidth - window.innerWidth + 200),
         ease: "none",

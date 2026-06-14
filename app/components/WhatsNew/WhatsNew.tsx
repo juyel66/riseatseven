@@ -160,7 +160,7 @@ const WhatsNew = () => {
           </h2>
         </div>
 
-        {/* BUTTON */}
+       
         <button
           ref={explorMoreButtonRef}
           onMouseEnter={() => handleButtonHover(explorMoreButtonRef, true)}

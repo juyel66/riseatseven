@@ -102,7 +102,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* COLUMN 2 */}
+       
           <div className="border-white/15 lg:border-l lg:pl-8">
 
             <div className="flex flex-col gap-3">
